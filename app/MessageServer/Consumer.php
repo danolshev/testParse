@@ -2,7 +2,7 @@
 
 namespace app\app\MessageServer;
 
-use app\app\Parse\Parser;
+use app\app\Parser\Parser;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use app\models\ResultParse;
