@@ -5,8 +5,8 @@ use yii\console\Controller;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-use app\MessageServer\Consumer;
-use app\MessageServer\Produder;
+use app\app\MessageServer\Consumer;
+use app\app\MessageServer\Producer;
 /**
  * This command echoes the first argument that you have entered.
  *
@@ -21,7 +21,7 @@ class ParseController extends Controller
     public function actionProducer()
     {
         $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-        $producer = new Producer($Connection);
+        $producer = new Producer($connection);
         $producer->produce();
     }
     

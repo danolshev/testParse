@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Parse;
+namespace app\app\Parse;
 
 /**
 * 

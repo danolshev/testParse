@@ -1,6 +1,6 @@
 <?php
 
-namespace app\MessageServer;
+namespace app\app\MessageServer;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
