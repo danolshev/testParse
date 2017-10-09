@@ -4,6 +4,7 @@ namespace app\commands;
 use yii\console\Controller;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use app\models\ResultParse;
 /**
  * This command echoes the first argument that you have entered.
  *
@@ -15,7 +16,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 class ParseController extends Controller
 {
     
-    public function actionProducer($msg)
+    public function actionProducer()
     {
         $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 
@@ -43,7 +44,9 @@ class ParseController extends Controller
         echo "Waiting message";
 
         $callback = function($message) {
-            $this->parse($message->body);
+            $resultParse = new ResultParse();
+            $resultParse->json = $this->parse($message->body);
+            $resultParse->save();
         };
 
         $channel->basic_consume('parse', '', false, true, false, false, $callback);
@@ -100,6 +103,6 @@ class ParseController extends Controller
             'attrs' => $resultAttrs,
         ];
 
-        var_dump($result);
+        return json_encode($result);
     }
 }
