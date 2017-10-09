@@ -22,7 +22,7 @@ class Consumer
 	public function consume()
 	{
         $channel = $this->connection->channel();
-        $channel->queue_declare('parse', false, false, false, false);
+        $channel->queue_declare(\Yii::$app->params['rabbitMQ']['queue'], false, false, false, false);
 
         echo "Waiting message";
 
@@ -35,7 +35,7 @@ class Consumer
             $resultParse->save();
         };
 
-        $channel->basic_consume('parse', '', false, true, false, false, $callback);
+        $channel->basic_consume(\Yii::$app->params['rabbitMQ']['queue'], '', false, true, false, false, $callback);
         while(count($channel->callbacks)) {
             $channel->wait();
         }

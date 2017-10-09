@@ -20,13 +20,13 @@ class Producer
 	public function produce()
 	{
 		$channel = $this->connection->channel();
-        $channel->queue_declare('parse', false, false, false, false);
+        $channel->queue_declare(\Yii::$app->params['rabbitMQ']['queue'], false, false, false, false);
 
         $msg = '{"type": "parse","data": {"site_id": 1,"url": "https://dealer.equip.center/153222/"}}';
 
         $message = new AMQPMessage($msg);
 
-        $channel->basic_publish($message, '', 'parse');
+        $channel->basic_publish($message, '', \Yii::$app->params['rabbitMQ']['queue']);
 
         echo "Sent message";
 

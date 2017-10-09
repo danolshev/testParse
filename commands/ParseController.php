@@ -20,14 +20,14 @@ class ParseController extends Controller
     
     public function actionProducer()
     {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $connection = new AMQPStreamConnection(\Yii::$app->params['rabbitMQ']['host'], \Yii::$app->params['rabbitMQ']['port'], \Yii::$app->params['rabbitMQ']['user'], \Yii::$app->params['rabbitMQ']['password']);
         $producer = new Producer($connection);
         $producer->produce();
     }
     
     public function actionConsumer()
     {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $connection = new AMQPStreamConnection(\Yii::$app->params['rabbitMQ']['host'], \Yii::$app->params['rabbitMQ']['port'], \Yii::$app->params['rabbitMQ']['user'], \Yii::$app->params['rabbitMQ']['password']);
         $consumer = new Consumer($connection);
         $consumer->consume();
     }
